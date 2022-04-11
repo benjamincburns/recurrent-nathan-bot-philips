@@ -1,0 +1,14 @@
+# Include everything the framework requires
+# You will automatically get updates for all versions starting with "1.".
+rlbot==1.*
+
+--find-links https://download.pytorch.org/whl/torch_stable.html
+torch>=1.11.0+cu115
+#torch>=1.11.0
+rlgym-compat==1.*
+rlgym-tools==1.*
+numpy==1.*
+git+https://github.com/DLR-RM/stable-baselines3.git@d2ebd2eeaaa324cd9b43e456286ea0be93994296
+git+https://github.com/Stable-Baselines-Team/stable-baselines3-contrib.git#feat/ppo-lstm
+tensorboard==2.*
+
