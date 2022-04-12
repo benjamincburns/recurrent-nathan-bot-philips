@@ -23,7 +23,7 @@ if __name__ == '__main__':  # Required for multiprocessing
     fps = 120 / frame_skip
     gamma = np.exp(np.log(0.5) / (fps * half_life_seconds))  # Quick mafs
     agents_per_match = 2
-    num_instances = 10
+    num_instances = 15
     target_steps = 100_000
     steps = target_steps // (num_instances * agents_per_match)
     batch_size = steps
@@ -73,7 +73,7 @@ if __name__ == '__main__':  # Required for multiprocessing
             # force_reset=True  # Make SB3 reset the env so it doesn't think we're continuing from last state
         )
 
-        reset_num_timestamps=False
+        reset_num_timesteps=False
 
     except:
 
@@ -102,7 +102,7 @@ if __name__ == '__main__':  # Required for multiprocessing
             #device="cpu"
         )
 
-        reset_num_timestamps=True
+        reset_num_timesteps=True
 
     # Save model every so often
     # Divide by num_envs (number of agents) because callback only increments every time all agents have taken a step
@@ -111,7 +111,9 @@ if __name__ == '__main__':  # Required for multiprocessing
 
     while True:
         # Use reset_num_timesteps=False to keep going with same logger/checkpoints
-        model.learn(25_000_000, callback=callback, reset_num_timesteps=reset_num_timestamps)
+        model.learn(25_000_000, callback=callback, reset_num_timesteps=reset_num_timesteps)
         model.save("models/exit_save")
         model.save(f"mmr_models/snapshot_{model.num_timesteps}")
+        reset_num_timesteps=False
+        
 
